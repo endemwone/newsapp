@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="create-article container">
+
+        <form class="form" action="" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="room_topic">Enter a Topic</label>
+                <input required type="text" value="{{room.topic.name}}" class="form-control" name="topic" list="topic-list" />
+                <datalist id="topic-list">
+                    <select id="room_topic">
+                        {% for topic in topics %}
+                        <option value="{{topic.name}}">{{topic.name}}</option>
+                        {% endfor %}
+                    </select>
+                </datalist>
+            </div>
+
+            <div class="form-group">
+                <label for="news_title">Title</label>
+                <input name='title' required type="text" maxlength="200" class="form-control" placeholder="Enter Title">
+                <small id="titleHelp" class="form-text text-muted">Title must be less than 200 characters long.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Body</label>
+                <textarea name='body' required type="text" class="form-control" placeholder="Start typing..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,222 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- TODO: Add line breaks in the body -->
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div>
+                                <h1 class="font-weight-600 mb-1">
+                                    {{news.title}}
+                                </h1>
+                                <p class="fs-13 text-muted mb-0">
+                                    <span class="mr-2">{{news.topic}} </span>{{news.created|timesince}}
+                                </p>
+                                <div class="rotate-img">
+                                    <img
+                                        src="{% static 'images/inner/inner_1.jpg' %}"
+                                        alt="banner"
+                                        class="img-fluid mt-4 mb-4" />
+                                </div>
+                                <p class="mb-4 fs-15">
+                                    {{news.body|linebreaks}}
+                                </p>
+                            </div>
+
+                            <div class="d-lg-flex">
+                                <span class="fs-16 font-weight-600 mr-2 mb-1">Tags</span>
+                                <span class="badge badge-outline-dark mr-2 mb-1">{{news.topic}}</span>
+                                <span class="badge badge-outline-dark mr-2 mb-1">Trending</span>
+                                <span class="badge badge-outline-dark mr-2 mb-1">Latest</span>
+                            </div>
+                            <div class="post-comment-section">
+                                <h3 class="font-weight-600">Related Posts</h3>
+                                <div class="row">
+
+                                    {% for news in related_news %}
+                                    <div class="col-sm-6">
+                                        <div class="post-author">
+                                            <div class="rotate-img">
+                                                <img
+                                                    src="{% static 'images/inner/inner_5.jpg' %}"
+                                                    alt="banner"
+                                                    class="img-fluid" />
+                                            </div>
+                                            <div class="post-author-content">
+                                                <h5 class="mb-1">
+                                                    {{news.title}}
+                                                </h5>
+                                                <p class="fs-13 text-muted mb-0">
+                                                    <span class="mr-2">{{news.topic}} </span>{{news.created|timesince}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+
+                                </div>
+
+                                <div class="testimonial">
+                                    <div
+                                        class="d-lg-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="rotate-img">
+                                                <img
+                                                    src="{% static 'images/faces/face1.jpg' %}"
+                                                    alt="banner"
+                                                    class="img-fluid img-rounded mr-3" />
+                                            </div>
+                                            <div>
+                                                <p class="fs-12 mb-1 line-height-xs">
+                                                    Of the Author
+                                                </p>
+                                                <p
+                                                    class="fs-16 font-weight-600 mb-0 line-height-xs">
+                                                    {{news.author}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ul class="social-media mb-3">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="mdi mdi-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="mdi mdi-youtube"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="mdi mdi-twitter"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <p class="fs-12">
+                                        TODO: Bio
+                                    </p>
+                                </div>
+                                <div class="comment-section">
+                                    <h5 class="font-weight-600">Comments</h5>
+
+                                    {% for comment in news.comments.all %}
+                                    <div class="comment-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rotate-img">
+                                                <img
+                                                    src="{% static 'images/faces/face2.jpg' %}"
+                                                    alt="banner"
+                                                    class="img-fluid img-rounded mr-3" />
+                                            </div>
+                                            <div>
+                                                <p class="fs-12 mb-1 line-height-xs">
+                                                    {{comment.created|timesince}}
+                                                </p>
+                                                <p
+                                                    class="fs-16 font-weight-600 mb-0 line-height-xs">
+                                                    {{comment.author}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <p class="fs-12 mt-3">
+                                            {{comment.body|linebreaks}}
+                                        </p>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                                <div class="comment-form">
+                                    <h5 class="mt-5 fw-light fs-5">Add a Comment...</h5>
+
+                                    <form class="form" action="" method="post">
+                                        {% csrf_token %}
+
+                                        <div class="form-floating">
+                                            <textarea id="comment-form" class="form-control" name="comment-body" type="text" placeholder="Write your opinion..."></textarea>
+                                        </div>
+                                        <br>
+
+                                        <div>
+                                            <button class="btn btn-primary btn-login text-uppercase fw-bold mb-5" type="submit">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h2 class="mb-4 text-primary font-weight-600">
+                                Latest news
+                            </h2>
+
+                            {% for news in latest_news %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="border-bottom pb-4 pt-4">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h5 class="font-weight-600 mb-1">
+                                                    {{news.title}}
+                                                </h5>
+                                                <p class="fs-13 text-muted mb-0">
+                                                    <span class="mr-2">{{news.topic}} </span>{{news.created|timesince}}
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="rotate-img">
+                                                    <img
+                                                        src="{% static 'images/inner/inner_7.jpg' %}"
+                                                        alt="banner"
+                                                        class="img-fluid" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <div class="trending">
+                                <h2 class="mb-4 text-primary font-weight-600">
+                                    Trending
+                                </h2>
+
+                                {% for news in trending_news %}
+                                <div class="mb-4">
+                                    <div class="rotate-img">
+                                        <img
+                                            src="{% static 'images/inner/inner_10.jpg' %}"
+                                            alt="banner"
+                                            class="img-fluid" />
+                                    </div>
+                                    <h3 class="mt-3 font-weight-600">
+                                        {{news.title}}
+                                    </h3>
+                                    <p class="fs-13 text-muted mb-0">
+                                        <span class="mr-2">{{news.topic}} </span>{{news.created|timesince}}
+                                    </p>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

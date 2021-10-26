@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+{% load main_vars %}
+<html lang="zxx">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>World Time</title>
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendors/aos/dist/aos.css/aos.css' %}" />
+
+  <!-- End plugin css for this page -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  <!-- endinject -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="main-panel">
+      <!-- partial:partials/_navbar.html -->
+      {% include "navbar.html" %}
+
+      
+
+      <!-- flash news banner -->
+      <div class="flash-news-banner">
+        <div class="container">
+          <div class="d-lg-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <span class="badge badge-dark mr-3">Quote of the day</span>
+              <p class="mb-0">
+                <!-- {% quote %} -->
+                I am a man of fixed and unbending principles, the first of which is to be flexible at all times.
+              </p>
+            </div>
+            <div class="d-flex">
+              <span class="mr-3 text-danger">{% date %}</span>
+              <span class="text-danger">30°C,Calicut</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- Messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} m-2" id="msg" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- content -->
+      {% block content %}
+
+      {% endblock content %}
+      <!-- main-panel ends -->
+      <!-- container-scroller ends -->
+
+      <!-- partial:partials/_footer.html -->
+      {% include "footer.html" %}
+
+      <!-- partial -->
+    </div>
+  </div>
+  <!-- inject:js -->
+  <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="{% static 'vendors/aos/dist/aos.js/aos.js' %}"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'js/demo.js' %}"></script>
+  <script src="{% static 'js/jquery.easeScroll.js' %}"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
